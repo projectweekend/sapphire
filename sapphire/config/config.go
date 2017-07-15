@@ -11,12 +11,14 @@ import (
 type configOptions struct {
     DstURL *url.URL
     JWTSecret string
+    Host string
 }
 
 
 func Options() configOptions {
     dstURLstr := flag.String("destination_url", "", "URL for remote service where traffic will be forwarded")
     jwtSecret := flag.String("jwt_secret", "", "Secret used to validate JWTs")
+    host := flag.String("host", ":9009", "Host:port where this server will listen")
 
     flag.Parse()
 
@@ -32,5 +34,5 @@ func Options() configOptions {
         log.Fatal("jwt_secret is required")
     }
 
-    return configOptions{dstURL, *jwtSecret}
+    return configOptions{dstURL, *jwtSecret, *host}
 }

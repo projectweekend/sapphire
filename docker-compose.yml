@@ -5,3 +5,13 @@ services:
         command: --destination_url=http://exitcodezero.io --jwt_secret=ermagerditsasecret
         ports:
             - "9009:9009"
+    frontend_tester:
+        build:
+            context: ./frontend_tester
+        command: go run main.go
+        volumes:
+            - "./frontend_tester:/go/src/github.com/projectweekend/frontend_tester"
+        depends_on:
+            - sapphire
+        environment:
+            JWT_SECRET: ermagerditsasecret
